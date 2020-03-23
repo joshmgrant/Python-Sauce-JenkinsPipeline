@@ -4,14 +4,16 @@ pipeline {
     stages {
         stage('Build Application') {
             steps {
-                cd sample-app/;
-                nodejs("11.9") { sh "npm install" }
+                dir('sample-app') {
+		    nodejs("11.9") { sh "npm install" }
+		}
             }
         }
         stage('Deploy Application') {
             steps {
-	    	  cd sample-app/;
-            	  nodejs("11.9") { sh "npm start &" }
+	    	  dir('sample-app') {
+                      nodejs("11.9") { sh "npm start &" }
+                  }
             }
         }
         stage('Run Functional Tests') {
